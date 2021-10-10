@@ -1,3 +1,5 @@
+let modalQt = 1;
+
 const dqs = (el)=>document.querySelector(el);
 const dqsall = (el)=> document.querySelectorAll (el);
 
@@ -19,13 +21,21 @@ pizzaJson.map((item, index)=>{
         e.preventDefault();
 
         let key = e.target.closest('.pizza-item').getAttribute('data-key');
+        modalQt = 1;
+
         dqs ('.pizzaBig img').src = pizzaJson[key].img;
         dqs('.pizzaInfo h1').innerHTML = pizzaJson[key].name;
         dqs('.pizzaInfo--desc').innerHTML = pizzaJson[key].description;
         dqs('.pizzaInfo--actualPrice').innerHTML = `R$ ${pizzaJson[key].price.toFixed(2)}`;
+        dqs ('.pizzaInfo--size.selected').classList.remove('selected');
         dqsall('.pizzaInfo--size').forEach((size, sizeIndex)=>{
+            if(sizeIndex == 2) {
+                size.classList.add('selected');
+            }
             size.querySelector('span').innerHTML = pizzaJson[key].sizes[sizeIndex];
         });
+
+        dqs('.pizzaInfo--qt').innerHTML = modalQt;
 
         dqs ('.pizzaWindowArea').style.opacity = 0;
         dqs ('.pizzaWindowArea').style.display = 'flex';
