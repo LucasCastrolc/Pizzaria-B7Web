@@ -3,6 +3,7 @@ let modalQt = 1;
 const dqs = (el)=>document.querySelector(el);
 const dqsall = (el)=> document.querySelectorAll (el);
 
+//Listagem das pizzas
 pizzaJson.map((item, index)=>{
     let pizzaItem = dqs('.models .pizza-item').cloneNode(true);
 
@@ -41,13 +42,39 @@ pizzaJson.map((item, index)=>{
         dqs ('.pizzaWindowArea').style.display = 'flex';
         setTimeout(()=>{
             dqs ('.pizzaWindowArea').style.opacity = 1;
-        }, 200);
-        
+        }, 200);    
     });
-        
-    
-     
-    
+          
     dqs('.pizza-area').append(pizzaItem);
+});
 
+// Eentos do Modal
+function closeModal() {
+    dqs('.pizzaWindowArea').style.opacity = 0;
+    setTimeout(()=>{
+       dqs('.pizzaWindowArea').style.display = 'none';
+    }, 500);
+}
+
+dqsall ('.pizzaInfo--cancelButton, .pizzaInfo--cancelMobileButton').forEach((item)=>{
+    item.addEventListener('click', closeModal);
+});
+
+dqs('.pizzaInfo--qtmenos').addEventListener('click', ()=>{
+    if(modalQt > 1){
+        modalQt--;
+        dqs('.pizzaInfo--qt').innerHTML = modalQt;
+    } 
+});
+
+dqs('.pizzaInfo--qtmais').addEventListener('click', ()=>{
+    modalQt++;
+    dqs('.pizzaInfo--qt').innerHTML = modalQt;
+});
+
+dqsall('.pizzaInfo--size').forEach((size, sizeIndex)=>{
+    size.addEventListener('click', (e)=>{
+    dqs('.pizzaInfo--size.selected').classList.remove('selected'); 
+    size.classList.add('selected');
+    })
 });
