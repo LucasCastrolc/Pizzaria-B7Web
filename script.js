@@ -84,17 +84,31 @@ dqsall('.pizzaInfo--size').forEach((size, sizeIndex)=>{
     
 dqs('.pizzaInfo--addButton').addEventListener('click', ()=>{
     let size = parseInt(dqs('.pizzaInfo--size.selected').getAttribute('data-key'));
+    let identifier = pizzaJson[modalKey].id+'@'+size;
+    let key = cart.findIndex((intem)=> item.identifier == identifier);
 
-    cart.push({
-        id:pizzaJson[modalKey].id, // Qual a pizza?
-        size, //Qual o tamanho?
-        qt:modalQt //Quantas pizzas?
-    });
+    if(key> -1){
+        car[key].qt +=modalQt;
+    }  else {
 
+        cart.push({
+         identifier,
+         id:pizzaJson[modalKey].id, // Qual a pizza?
+         size, //Qual o tamanho?
+         qt:modalQt //Quantas pizzas?
+        });
+    }
+    updateCart();
     closeModal();
 });
 
-    
+    function updateCart(){
+        if(cart.length > 0){
+            dqs('aside').classList.add('show');
+        }else{
+            dqs('aside').classList.remove('show');
+        }
+    }
 
     
     
